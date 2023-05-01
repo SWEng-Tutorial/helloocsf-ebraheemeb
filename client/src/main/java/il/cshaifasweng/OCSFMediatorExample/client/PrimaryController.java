@@ -69,6 +69,7 @@ public class PrimaryController {
 		try {
 			Message message = new Message(msgId, "send Submitters IDs");
 			SimpleClient.getClient().sendToServer(message);
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

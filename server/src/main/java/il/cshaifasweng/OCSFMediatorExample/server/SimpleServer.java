@@ -6,7 +6,10 @@ import il.cshaifasweng.OCSFMediatorExample.server.ocsf.ConnectionToClient;
 import il.cshaifasweng.OCSFMediatorExample.server.ocsf.SubscribedClient;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class SimpleServer extends AbstractServer {
 	private static ArrayList<SubscribedClient> SubscribersList = new ArrayList<>();
@@ -34,6 +37,8 @@ public class SimpleServer extends AbstractServer {
 				message.setData(request.substring(23));
 				message.setMessage("update submitters IDs");
 				sendToAllClients(message);
+				client.sendToClient(message);
+
 			}
 			//we got a request to add a new client as a subscriber.
 			else if (request.equals("add client")){
@@ -48,15 +53,28 @@ public class SimpleServer extends AbstractServer {
 				client.sendToClient(message);
 			}
 			else if(request.startsWith("send Submitters IDs")){
+				message.setMessage("212023998, 324302637");
+				client.sendToClient(message);
 				//add code here to send submitters IDs to client
 			}
 			else if (request.startsWith("send Submitters")){
+				message.setMessage("ebraheem, lana");
+				client.sendToClient(message);
 				//add code here to send submitters names to client
 			}
 			else if (request.equals("what’s the time?")) {
+				DateFormat time= new SimpleDateFormat();
+				String times_now= time.format(new Date());
+				message.setMessage(times_now);
+				client.sendToClient(message);
 				//add code here to send the time to client
 			}
 			else if (request.startsWith("multiply")){
+				String [] mas= (request.substring((9)).split("\\*"));
+				int m=Integer.parseInt(mas[0]);
+				int n=Integer.parseInt(mas[1]);
+				message.setMessage(String.valueOf(m*n));
+				client.sendToClient(message);
 				//add code here to multiply 2 numbers received in the message and send result back to client
 				//(use substring method as shown above)
 				//message format: "multiply n*m"
@@ -67,6 +85,7 @@ public class SimpleServer extends AbstractServer {
 					// message received: "Good morning"
 					// message sent: "Good morning"
 				//see code for changing submitters IDs for help
+				sendToAllClients(message);
 			}
 		} catch (IOException e1) {
 			e1.printStackTrace();
