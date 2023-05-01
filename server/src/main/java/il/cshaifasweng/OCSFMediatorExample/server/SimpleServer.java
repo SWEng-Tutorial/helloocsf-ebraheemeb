@@ -63,7 +63,7 @@ public class SimpleServer extends AbstractServer {
 				//add code here to send submitters names to client
 			}
 			else if (request.equals("what’s the time?")) {
-				DateFormat time= new SimpleDateFormat();
+				DateFormat time= new SimpleDateFormat("HH:mm:ss");
 				String times_now= time.format(new Date());
 				message.setMessage(times_now);
 				client.sendToClient(message);
